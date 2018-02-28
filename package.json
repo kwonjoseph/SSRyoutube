@@ -40,5 +40,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "webpack": "^4.0.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^2.0.9"
   }
 }

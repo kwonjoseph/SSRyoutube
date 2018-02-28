@@ -9,12 +9,12 @@ module.exports = {
     path: DIST_DIR
   },
   module : {
-    loaders : [
+    rules : [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader : 'babel-loader',
-        query: {
+        options: {
           presets: ['react', 'env']
         }
       }
