@@ -2,9 +2,9 @@ import React from 'react';
 
 const UserComment = (props) => (
   <div className="comment">
-    <b>Vegeta</b>
+    <b>{props.user}</b>
     <br></br>
-    <small>I'm down</small>
+    <small>{props.commentText}</small>
   </div>
 );
 

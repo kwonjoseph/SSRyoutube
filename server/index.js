@@ -1,5 +1,6 @@
 import express from 'express';
-import handleRender from './render-middleware.js'
+import handleRender from './render-middleware.js';
+var videos = require('../database');
 const app = express();
 
 app.get('/', handleRender);

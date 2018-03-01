@@ -2,11 +2,11 @@ import React from 'react';
 import UserComment from './user-comment.js';
 
 const UserComments = (props) => (
-  <div id="comments">
+  <div className="comments" style={{width: '80%'}}>
     <hr></hr>
-    <h3>Top Comments</h3>
+    <h3>Comments</h3>
     {props.comments.map((comment, idx) =>
-        <UserComment key={idx}/>
+        <UserComment key={idx} commentText={comment.snippet.topLevelComment.snippet.textOriginal} user={comment.snippet.topLevelComment.snippet.authorDisplayName}/>
     )}
   </div>
 );
