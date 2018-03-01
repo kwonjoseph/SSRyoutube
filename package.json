@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -d --watch",
     "heroku-postbuild": "webpack -p",
-    "start": "node server/index.js"
+    "start": "babel-node server/index.js --presets react,env"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
     "webpack": "^4.0.1"
   },
   "devDependencies": {
+    "dotenv": "^5.0.1",
     "webpack-cli": "^2.0.9"
   }
 }
