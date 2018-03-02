@@ -8,7 +8,7 @@ import videoDB from '../database/index.js';
 
 const handleRender = function(req, res) {
   request(uriBuilder('https://www.googleapis.com/youtube/v3/search', {
-      key: process.env.YOUTUBE || 'AIzaSyB40f6IGhdSn8WU89JQ8WdtLdUsW5O3X8Y',
+      key: process.env.YOUTUBE,
       part: 'snippet',
       q: req.query.term || 'Youtube API Overview',
       maxResults: 6,
