@@ -17,14 +17,14 @@ const handleRender = function(req, res) {
       let videoResults = JSON.parse(body);
       let currentVideo = videoResults.items[0]
       request(uriBuilder('https://www.googleapis.com/youtube/v3/commentThreads', {
-        key: process.env.YOUTUBE || 'AIzaSyB40f6IGhdSn8WU89JQ8WdtLdUsW5O3X8Y',
+        key: process.env.YOUTUBE,
         part: 'snippet',
         videoId: videoResults.items[0].id.videoId,
         maxResults: 10
       }), function (err, resp, bod) {
         let commentResults = JSON.parse(bod);
         request(uriBuilder('https://www.googleapis.com/youtube/v3/videos', {
-          key: process.env.YOUTUBE || 'AIzaSyB40f6IGhdSn8WU89JQ8WdtLdUsW5O3X8Y',
+          key: process.env.YOUTUBE,
           part: 'statistics',
           id: videoResults.items[0].id.videoId,
         }), function (Error, Res, Body) {
