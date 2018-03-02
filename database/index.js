@@ -19,7 +19,7 @@ var videoSchema = mongoose.Schema({
 var Video = mongoose.model('video', videoSchema);
 
 var selectAll = function(callback) {
-  video.find({}, function(err, items) {
+  Video.find({}, function(err, items) {
     if(err) {
       callback(err, null);
     } else {
@@ -40,6 +40,12 @@ var addVideo = function(video, callback) {
   });
 };
 
-module.exports.selectAll = selectAll;
-module.exports.addVideo = addVideo;
-module.exports.video = Video;
+export default {
+  selectAll: selectAll,
+  addVideo: addVideo,
+  video: Video
+}
+
+// module.exports.selectAll = selectAll;
+// module.exports.addVideo = addVideo;
+// module.exports.video = Video;

@@ -32,16 +32,19 @@ class App extends React.Component {
         }
       }
     }
+    let historyTemplate = {
+      thumbnail: '',
+      title: ''
+    }
     this.state = {
       currentVideo: props.currentVideo || videoTemplate,
       similarVideos: props.similarVideos || [videoTemplate, videoTemplate, videoTemplate, videoTemplate, videoTemplate],
-      videoHistory: props.similarVideos || [videoTemplate, videoTemplate, videoTemplate, videoTemplate, videoTemplate],
+      videoHistory: props.videoHistory|| [historyTemplate, historyTemplate, historyTemplate, historyTemplate, historyTemplate],
       searchField: '',
       comments: props.comments || [commentTemplate]
     }
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleVideoChange = this.handleVideoChange.bind(this);
   }
 
   handleSearchChange(e) {
@@ -59,16 +62,12 @@ class App extends React.Component {
     }
   }
 
-  handleVideoChange(e) {
-      location.href = '/search?term=' + e.target.value;
-  }
-
   render () {
     return (
         <div id="interface" style={{margin: 'auto', width: '70%'}}>
           <Search handleSearch={this.handleSearch} handleSearchChange={this.handleSearchChange}/>
           <Player video={this.state.currentVideo}/>
-          <VideoList similarVideos={this.state.similarVideos} handleVideoChange={this.handleVideoChange}/>
+          <VideoList similarVideos={this.state.similarVideos} handleVideoChange={this.handleVideoChange} videoHistory={this.state.videoHistory}/>
           <UserComments comments={this.state.comments}/>
         </div>
     )

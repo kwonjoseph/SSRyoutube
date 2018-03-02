@@ -1,6 +1,6 @@
 import React from 'react';
 
-const VideoEntry = (props) => (
+const VideoHistory = (props) => (
   <div className="videoEntry">
     <div className="thumbnail" style={{float: "left"}}>
       <img src={props.thumbnail}/>
@@ -12,4 +12,4 @@ const VideoEntry = (props) => (
   </div>
 );
 
-export default VideoEntry;
+export default VideoHistory;

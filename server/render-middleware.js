@@ -4,6 +4,7 @@ import uriBuilder from '../src/uri-builder.js';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import App from '../src/app.js';
+import videoDB from '../database/index.js';
 
 const handleRender = function(req, res) {
   request(uriBuilder('https://www.googleapis.com/youtube/v3/search', {
@@ -14,6 +15,7 @@ const handleRender = function(req, res) {
       type: 'video'
     }), function (error, response, body) {
       let videoResults = JSON.parse(body);
+      let currentVideo = videoResults.items[0]
       request(uriBuilder('https://www.googleapis.com/youtube/v3/commentThreads', {
         key: process.env.YOUTUBE,
         part: 'snippet',
@@ -21,16 +23,21 @@ const handleRender = function(req, res) {
         maxResults: 10
       }), function (err, resp, bod) {
         let commentResults = JSON.parse(bod);
-        console.log(commentResults.items[0].snippet.topLevelComment);
-        const html = ReactDOMServer.renderToString(<App currentVideo={videoResults.items[0]} similarVideos={videoResults.items.slice(1)} comments={commentResults.items}/>);
-        fs.readFile('./dist/index.html', 'utf8', function (err, data) {
-          if (err) throw err;
-          const document = data.replace(/<div id="app"><\/div>/, `<div id="app">${html}</div>`);
-          res.send(document);
+        videoDB.addVideo({thumbnail: currentVideo.snippet.thumbnails.default.url, title: currentVideo.snippet.title}, function(err, data) {
+          if(err) throw err;
+          videoDB.selectAll(function(Err, datas) {
+            if(Err) throw Err;
+            fs.readFile('./dist/index.html', 'utf8', function (er, fileData) {
+              if (er) throw er;
+              const html = ReactDOMServer.renderToString(<App currentVideo={currentVideo} similarVideos={videoResults.items.slice(1)} comments={commentResults.items} videoHistory={datas.slice(datas.length - 5).reverse()}/>);
+              const document = fileData.replace(/<div id="app"><\/div>/, `<div id="app">${html}</div>`);
+              res.send(document);
+            });
+          });
         });
-      })
-
-  });
+      });
+    });
 };
+
 
 export default handleRender;
