@@ -44,19 +44,16 @@ class App extends React.Component {
       comments: props.comments || [commentTemplate]
     }
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
   }
 
-  handleSearchChange(e) {
-    this.setState({
-      searchField: e.target.value
-    });
+  handleEnter(e) {
     if (e.key === 'Enter') {
       this.handleSearch(e.target.value);
     }
   }
 
-  handleSearch(search = this.state.searchField) {
+  handleSearch(search = document.getElementById('input').value) {
     if (search.length) {
       location.href = '/search?term=' + search;
     }
@@ -65,7 +62,7 @@ class App extends React.Component {
   render () {
     return (
         <div id="interface" style={{margin: 'auto', width: '70%'}}>
-          <Search handleSearch={this.handleSearch} handleSearchChange={this.handleSearchChange}/>
+          <Search handleSearch={this.handleSearch} handleSearchChange={this.handleSearchChange} handleEnter={this.handleEnter}/>
           <Player video={this.state.currentVideo}/>
           <VideoList similarVideos={this.state.similarVideos} handleVideoChange={this.handleVideoChange} videoHistory={this.state.videoHistory}/>
           <UserComments comments={this.state.comments}/>
